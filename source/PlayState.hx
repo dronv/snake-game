@@ -30,7 +30,10 @@ class PlayState extends FlxState
 		add(snake);
 		var soardragon = new FlxSprite().loadGraphic(AssetPaths.soardragon__png);
 		add(soardragon);
-		var score = 0;
+		var txtScore = new FlxText(10, 10, 200, "Score: 0", 20);
+		var txtTime = new FlxText(10, 30, 200, "Time: 0", 20);
+		add(txtScore);
+		add(txtTime);
 	}
 
 	override public function update(elapsed:Float)
