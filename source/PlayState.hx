@@ -7,6 +7,8 @@ import flixel.FlxG;
 class PlayState extends FlxState
 {
 	var sprite:FlxSprite;
+	var snake:FlxSprite;
+	var soarddragon:FlxSprite;
 	override public function create()
 	{
 		super.create();
@@ -23,6 +25,8 @@ class PlayState extends FlxState
 		}
 		add(sprite);
 		var snake = new FlxSprite().loadGraphic(AssetPaths.snake__png);
+		snake.x=FlxG.width/2-snake.width/2;
+		snake.y=FlxG.height/2-snake.height/2;
 		add(snake);
 		var soardragon = new FlxSprite().loadGraphic(AssetPaths.soardragon__png);
 		add(soardragon);
