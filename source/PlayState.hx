@@ -3,16 +3,21 @@ package;
 import flixel.FlxState;
 import flixel.FlxSprite;
 import flixel.FlxG;
+import flixel.FlxObject;
 import flixel.text.FlxText;
+import flixel.group.FlxSpriteGroup;
+import flixel.util.FlxColor;
 
 class PlayState extends FlxState
 {
 	var sprite:FlxSprite;
-	var snake:FlxSprite;
-	var soarddragon:FlxSprite;
+	var soarDragon:FlxSprite;
+	var snakeHead:FlxSprite;
+	var snakeBody:FlxSpriteGroup;
+	var headPositions:Array<FlxPoint>;
 	override public function create()
 	{
-		super.create();
+		
 		super.create();
 		sprite = new FlxSprite();
 		sprite.makeGraphic(640,480,flixel.util.FlxColor.WHITE);
@@ -25,13 +30,17 @@ class PlayState extends FlxState
 			}
 		}
 		add(sprite);
-		var snake = new FlxSprite().loadGraphic(AssetPaths.snake__png);
-		snake.x=FlxG.width/2-snake.width/2;
-		snake.y=FlxG.height/2-snake.height/2;
-		add(snake);
-		var soardragon = new FlxSprite().loadGraphic(AssetPaths.soardragon__png);
-		add(soardragon);
-		var txtScore = new FlxText(10, 10, 200, "Score: 0", 20);
+		var snakeHead = new FlxSprite().loadGraphic(AssetPaths.snakehead__png);
+		snakeHead.x=FlxG.width/2-snakeHead.width/2;
+		snakeHead.y=FlxG.height/2-snakeHead.height/2;
+		offestSprite(snakeHead);
+		headPositions = [FlxPoint.get(snakeHead.x, snakeHead.y)];
+		snakeBody = new FlxSpriteGroup();
+		add(snakeBody);
+		add(snakeHead);
+		var soarDragon = new FlxSprite().loadGraphic(AssetPaths.soardragon__png);
+		add(soarDragon);
+		var txtScore = new FlxText(10, 10, 200, "Score: " + score);
 		var txtTime = new FlxText(10, 30, 200, "Time: 0", 20);
 		add(txtScore);
 		add(txtTime);
@@ -41,11 +50,51 @@ class PlayState extends FlxState
 	{
 		super.update(elapsed);
 		
+<<<<<<< HEAD
 		//if(){
 		//	gameover();
 		//}
 		function gameover(){
 			FlxG.switchState(new EndState());
+=======
+		if(snake.overlap(sprite)){
+			score = score + 1;
+			txtScore.text = "Score: " + score;
+			
 		}
+		
+		function gameover(){
+			//a function that indicates the game is over, when the time reaches zero. Prolly, will be outside the update. ~AV
+		}
+		if(gameover()){
+			FlxG.state = new GameOverState(score);
+>>>>>>> a2095a58f295488c57d2da57d116840e5c105f83
+		}
+	}
+	function offestSprite(Sprite:FlxSprite):Void
+	{
+		Sprite.offset.set(1, 1);
+		Sprite.centerOffsets();
+	}
+}
+
+class GameOverState extends FlxState
+{
+	var finalScore:Int;
+	var txtFinalScore:FlxText;
+
+	public function new(finalScore:Int)
+	{
+		super();
+		this.finalScore = finalScore;
+	}
+
+	override public function create()
+	{
+		super.create();
+
+		txtFinalScore = new FlxText(FlxG.width / 2, FlxG.height / 2, 200, "Final Score: " + finalScore);
+		txtFinalScore.setFormat(null, 32, 0xffffff, "center");
+		add(txtFinalScore);
 	}
 }
