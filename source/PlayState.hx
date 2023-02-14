@@ -41,11 +41,11 @@ class PlayState extends FlxState
 	{
 		super.update(elapsed);
 		
-		if(){
-			gameover();
-		}
+		//if(){
+		//	gameover();
+		//}
 		function gameover(){
-			FlxG.state= new FlxState();
+			FlxG.switchState(new EndState());
 		}
 	}
 }
