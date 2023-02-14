@@ -10,10 +10,13 @@ class PlayState extends FlxState
 	var sprite:FlxSprite;
 	var snake:FlxSprite;
 	var soarddragon:FlxSprite;
+	var score:Int;
+	
 	override public function create()
 	{
+		
 		super.create();
-		super.create();
+		
 		sprite = new FlxSprite();
 		sprite.makeGraphic(640,480,flixel.util.FlxColor.WHITE);
 		for(y in 0... 490){
@@ -31,7 +34,9 @@ class PlayState extends FlxState
 		add(snake);
 		var soardragon = new FlxSprite().loadGraphic(AssetPaths.soardragon__png);
 		add(soardragon);
-		var txtScore = new FlxText(10, 10, 200, "Score: 0", 20);
+		
+		score = 0;
+		var txtScore = new FlxText(10, 10, 200, "Score: " + score);
 		var txtTime = new FlxText(10, 30, 200, "Time: 0", 20);
 		add(txtScore);
 		add(txtTime);
@@ -41,11 +46,38 @@ class PlayState extends FlxState
 	{
 		super.update(elapsed);
 		
-		if(){
-			gameover();
+		if(snake.overlap(sprite)){
+			score = score + 1;
+			txtScore.text = "Score: " + score;
+			
 		}
+		
 		function gameover(){
-			FlxG.state= new FlxState();
+			//a function that indicates the game is over, when the time reaches zero. Prolly, will be outside the update. ~AV
 		}
+		if(gameover()){
+			FlxG.state = new GameOverState(score);
+		}
+	}
+}
+
+class GameOverState extends FlxState
+{
+	var finalScore:Int;
+	var txtFinalScore:FlxText;
+
+	public function new(finalScore:Int)
+	{
+		super();
+		this.finalScore = finalScore;
+	}
+
+	override public function create()
+	{
+		super.create();
+
+		txtFinalScore = new FlxText(FlxG.width / 2, FlxG.height / 2, 200, "Final Score: " + finalScore);
+		txtFinalScore.setFormat(null, 32, 0xffffff, "center");
+		add(txtFinalScore);
 	}
 }
