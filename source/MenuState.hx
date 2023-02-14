@@ -32,7 +32,7 @@ class MenuState extends FlxState
 		playButton.screenCenter();
 		add(playButton);
 
-		var titleText = new FlxText((windowWidth * 0.5) - 25, 50, "SNAKE", 38);
+		var titleText = new FlxText((windowWidth * 0.5) - 25, 50, "EVOLVING SNAKE", 38);
 		add(titleText);		
 	}
 	//Play Button is clicked:

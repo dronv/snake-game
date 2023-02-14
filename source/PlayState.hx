@@ -44,7 +44,7 @@ class PlayState extends FlxState
 		add(snakeHead);
 		var fruit = new FlxSprite().makeGraphic(6,6,flixel.util.FlxColor.RED);
 		//randomizeFruitPosition();
-		offestSprite(fruit);
+		offsetSprite(fruit);
 		add(fruit);
 		var txtScore = new FlxText(10, 10, 200, "Score: " + score);
 		add(txtScore);
