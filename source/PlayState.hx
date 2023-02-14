@@ -42,8 +42,6 @@ class PlayState extends FlxState
 		snakeBody = new FlxSpriteGroup();
 		add(snakeBody);
 		add(snakeHead);
-		var soarDragon = new FlxSprite().loadGraphic(AssetPaths.soardragon__png);
-		add(soarDragon);
 		var fruit = new FlxSprite().makeGraphic(6,6,flixel.util.FlxColor.RED);
 		//randomizeFruitPosition();
 		offestSprite(fruit);
@@ -55,27 +53,24 @@ class PlayState extends FlxState
 	override public function update(elapsed:Float)
 	{
 		super.update(elapsed);
+		if(FlxG.keys.pressed.LEFT){
+			snakeHead.x --;
+		}
 		
-<<<<<<< HEAD
-		//if(){
-		//	gameover();
-		//}
-		function gameover(){
+	}
+
+	function gameover(){
 			FlxG.switchState(new EndState());
-=======
-		if(snake.overlap(sprite)){
-			score = score + 1;
-			txtScore.text = "Score: " + score;
+
+		// if(snake.overlap(sprite)){
+		// 	score = score + 1;
+		// 	txtScore.text = "Score: " + score;
 			
-		}
+		// }
 		
-		function gameover(){
-			//a function that indicates the game is over, when the time reaches zero. Prolly, will be outside the update. ~AV
-		}
-		if(gameover()){
-			FlxG.state = new GameOverState(score);
->>>>>>> a2095a58f295488c57d2da57d116840e5c105f83
-		}
+		// if(gameover()){
+		// 	FlxG.state = new GameOverState(score);
+		// }
 	}
 	function offestSprite(Sprite:FlxSprite):Void
 	{
@@ -84,23 +79,23 @@ class PlayState extends FlxState
 	}
 }
 
-class GameOverState extends FlxState
-{
-	var finalScore:Int;
-	var txtFinalScore:FlxText;
+// class GameOverState extends FlxState
+// {
+// 	var finalScore:Int;
+// 	var txtFinalScore:FlxText;
 
-	public function new(finalScore:Int)
-	{
-		super();
-		this.finalScore = finalScore;
-	}
+// 	public function new(finalScore:Int)
+// 	{
+// 		super();
+// 		this.finalScore = finalScore;
+// 	}
 
-	override public function create()
-	{
-		super.create();
+// 	override public function create()
+// 	{
+// 		super.create();
 
-		txtFinalScore = new FlxText(FlxG.width / 2, FlxG.height / 2, 200, "Final Score: " + finalScore);
-		txtFinalScore.setFormat(null, 32, 0xffffff, "center");
-		add(txtFinalScore);
-	}
-}
+// 		txtFinalScore = new FlxText(FlxG.width / 2, FlxG.height / 2, 200, "Final Score: " + finalScore);
+// 		txtFinalScore.setFormat(null, 32, 0xffffff, "center");
+// 		add(txtFinalScore);
+// 	}
+
