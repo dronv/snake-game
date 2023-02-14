@@ -7,6 +7,7 @@ import flixel.FlxObject;
 import flixel.text.FlxText;
 import flixel.group.FlxSpriteGroup;
 import flixel.util.FlxColor;
+import flixel.math.FlxPoint;
 
 class PlayState extends FlxState
 {
@@ -14,7 +15,10 @@ class PlayState extends FlxState
 	var soarDragon:FlxSprite;
 	var snakeHead:FlxSprite;
 	var snakeBody:FlxSpriteGroup;
+	var fruit:FlxSprite;
 	var headPositions:Array<FlxPoint>;
+	var score:Int = 0;
+	var txtScore:FlxText;
 	override public function create()
 	{
 		
@@ -40,10 +44,12 @@ class PlayState extends FlxState
 		add(snakeHead);
 		var soarDragon = new FlxSprite().loadGraphic(AssetPaths.soardragon__png);
 		add(soarDragon);
+		var fruit = new FlxSprite().makeGraphic(6,6,flixel.util.FlxColor.RED);
+		//randomizeFruitPosition();
+		offestSprite(fruit);
+		add(fruit);
 		var txtScore = new FlxText(10, 10, 200, "Score: " + score);
-		var txtTime = new FlxText(10, 30, 200, "Time: 0", 20);
 		add(txtScore);
-		add(txtTime);
 	}
 
 	override public function update(elapsed:Float)
