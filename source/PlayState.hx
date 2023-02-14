@@ -7,6 +7,8 @@ import flixel.FlxObject;
 import flixel.text.FlxText;
 import flixel.group.FlxSpriteGroup;
 import flixel.util.FlxColor;
+import flixel.math.FlxPoint;
+
 
 class PlayState extends FlxState
 {
@@ -15,6 +17,8 @@ class PlayState extends FlxState
 	var snakeHead:FlxSprite;
 	var snakeBody:FlxSpriteGroup;
 	var headPositions:Array<FlxPoint>;
+	var score:Int;
+	var txtScore:FlxText;
 	override public function create()
 	{
 		
@@ -33,7 +37,7 @@ class PlayState extends FlxState
 		var snakeHead = new FlxSprite().loadGraphic(AssetPaths.snakehead__png);
 		snakeHead.x=FlxG.width/2-snakeHead.width/2;
 		snakeHead.y=FlxG.height/2-snakeHead.height/2;
-		offestSprite(snakeHead);
+		offsetSprite(snakeHead);
 		headPositions = [FlxPoint.get(snakeHead.x, snakeHead.y)];
 		snakeBody = new FlxSpriteGroup();
 		add(snakeBody);
@@ -49,29 +53,20 @@ class PlayState extends FlxState
 	override public function update(elapsed:Float)
 	{
 		super.update(elapsed);
-		
-<<<<<<< HEAD
-		//if(){
-		//	gameover();
-		//}
 		function gameover(){
-			FlxG.switchState(new EndState());
-=======
-		if(snake.overlap(sprite)){
+			//TODO, for now
+			return false;
+		}
+		if(snakeHead.overlaps(sprite)){
 			score = score + 1;
 			txtScore.text = "Score: " + score;
-			
-		}
-		
-		function gameover(){
-			//a function that indicates the game is over, when the time reaches zero. Prolly, will be outside the update. ~AV
 		}
 		if(gameover()){
-			FlxG.state = new GameOverState(score);
->>>>>>> a2095a58f295488c57d2da57d116840e5c105f83
+			FlxG.switchState(new EndState(score));
 		}
 	}
-	function offestSprite(Sprite:FlxSprite):Void
+
+	function offsetSprite(Sprite:FlxSprite):Void
 	{
 		Sprite.offset.set(1, 1);
 		Sprite.centerOffsets();
