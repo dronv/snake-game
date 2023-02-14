@@ -106,6 +106,7 @@ null
 
 @:keep @:bind @:noCompletion #if display private #end class __ASSET__assets_data_data_goes_here_txt extends null { }
 @:keep @:bind @:noCompletion #if display private #end class __ASSET__assets_images_images_go_here_txt extends null { }
+@:keep @:bind @:noCompletion #if display private #end class __ASSET__assets_images_logo_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind @:noCompletion #if display private #end class __ASSET__assets_images_menu_background2_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind @:noCompletion #if display private #end class __ASSET__assets_images_snakehead_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind @:noCompletion #if display private #end class __ASSET__assets_images_soardragon_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
