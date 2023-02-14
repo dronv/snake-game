@@ -3,20 +3,22 @@ package;
 import flixel.FlxState;
 import flixel.FlxSprite;
 import flixel.FlxG;
+import flixel.FlxObject;
 import flixel.text.FlxText;
+import flixel.group.FlxSpriteGroup;
+import flixel.util.FlxColor;
 
 class PlayState extends FlxState
 {
 	var sprite:FlxSprite;
-	var snake:FlxSprite;
-	var soarddragon:FlxSprite;
-	var score:Int;
-	
+	var soarDragon:FlxSprite;
+	var snakeHead:FlxSprite;
+	var snakeBody:FlxSpriteGroup;
+	var headPositions:Array<FlxPoint>;
 	override public function create()
 	{
 		
 		super.create();
-		
 		sprite = new FlxSprite();
 		sprite.makeGraphic(640,480,flixel.util.FlxColor.WHITE);
 		for(y in 0... 490){
@@ -28,14 +30,16 @@ class PlayState extends FlxState
 			}
 		}
 		add(sprite);
-		var snake = new FlxSprite().loadGraphic(AssetPaths.snake__png);
-		snake.x=FlxG.width/2-snake.width/2;
-		snake.y=FlxG.height/2-snake.height/2;
-		add(snake);
-		var soardragon = new FlxSprite().loadGraphic(AssetPaths.soardragon__png);
-		add(soardragon);
-		
-		score = 0;
+		var snakeHead = new FlxSprite().loadGraphic(AssetPaths.snakehead__png);
+		snakeHead.x=FlxG.width/2-snakeHead.width/2;
+		snakeHead.y=FlxG.height/2-snakeHead.height/2;
+		offestSprite(snakeHead);
+		headPositions = [FlxPoint.get(snakeHead.x, snakeHead.y)];
+		snakeBody = new FlxSpriteGroup();
+		add(snakeBody);
+		add(snakeHead);
+		var soarDragon = new FlxSprite().loadGraphic(AssetPaths.soardragon__png);
+		add(soarDragon);
 		var txtScore = new FlxText(10, 10, 200, "Score: " + score);
 		var txtTime = new FlxText(10, 30, 200, "Time: 0", 20);
 		add(txtScore);
@@ -58,6 +62,11 @@ class PlayState extends FlxState
 		if(gameover()){
 			FlxG.state = new GameOverState(score);
 		}
+	}
+	function offestSprite(Sprite:FlxSprite):Void
+	{
+		Sprite.offset.set(1, 1);
+		Sprite.centerOffsets();
 	}
 }
 
