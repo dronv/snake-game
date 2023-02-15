@@ -46,8 +46,7 @@ class MenuState extends FlxState
 		add(howToPlayText1);
 
 		var howToPlayText2 = new FlxText(
-		" But careful: Don't hit the WALLS 
-		      or CRASH into yourself!     ");
+		"But careful: Don't CRASH into yourself!");
 		howToPlayText2.setFormat(null, 16, FlxColor.BLACK, CENTER, OUTLINE);
 		howToPlayText2.x = windowWidth* 0.5 - howToPlayText1.width * 0.5;
 		howToPlayText2.y = windowHeight*0.75;
@@ -60,7 +59,6 @@ class MenuState extends FlxState
 	{
 		FlxG.switchState(new PlayState());
 	}
-
 
 	override public function update(elapsed:Float):Void
 	{
