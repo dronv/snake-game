@@ -34,7 +34,7 @@ class PlayState extends FlxState
 		add(snakeBody);
 
 		fruit = new FlxSprite();
-		fruit.makeGraphic(10, 10, FlxColor.RED);
+                fruit.loadGraphic(AssetPaths.apple__png);
 		randomizeFruitPosition();
 		snakeHead.offset.set(1, 1);
 		snakeHead.centerOffsets();
