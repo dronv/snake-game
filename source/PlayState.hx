@@ -31,7 +31,7 @@ class PlayState extends FlxState
 
 	override public function create()
 	{
-		FlxG.sound.play(AssetPaths.playclick__wav);
+		FlxG.sound.play(AssetPaths.Playclick__mp3);
 		FlxG.sound.playMusic(AssetPaths.bgm__ogg);
 		super.create();
 		sprite = new FlxSprite();
@@ -131,7 +131,7 @@ class PlayState extends FlxState
 		increaseScore();
 		addBody();
 		applePosition();
-		FlxG.sound.play(AssetPaths.eat__wav);
+		FlxG.sound.play(AssetPaths.eat__mp3);
 		if(score>=200 &&score<250){
 			snakeHead.updatestate();
 		}
