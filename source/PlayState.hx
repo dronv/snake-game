@@ -45,7 +45,7 @@ class PlayState extends FlxState
 		add(sprite);
 		FlxG.mouse.visible = false;
 		snakeHead = new FlxSprite();
-        snakeHead.loadGraphic(AssetPaths.snakehead__png);
+                snakeHead.loadGraphic(AssetPaths.snakehead__png);
 		snakeHead.offset.set(1, 1);
 		snakeHead.centerOffsets();
 		snakeHead.x = Math.floor(FlxG.width / 2);
@@ -70,7 +70,7 @@ class PlayState extends FlxState
 		add(snakeHead);
 
 		apple = new FlxSprite();
-        apple.loadGraphic(AssetPaths.apple__png);
+                apple.loadGraphic(AssetPaths.apple__png);
 		applePosition();
 		apple.offset.set(1, 1);
 		apple.centerOffsets();
