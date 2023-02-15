@@ -17,10 +17,11 @@ class PlayState extends FlxState
 {
 	var sprite:FlxSprite;
 	var scoreText:FlxText;
-	var fruit:FlxSprite;
+	var apple:FlxSprite;
 	var snakeHead:FlxSprite;
 	var headPoints:Array<FlxPoint>;
 	var snakeBody:FlxSpriteGroup;
+	var bodyBlock : FlxSprite;
 	var score:Int = 0;
 	var currentDir = FlxDirection.LEFT;
 	var nextDir = FlxDirection.LEFT;
@@ -45,58 +46,69 @@ class PlayState extends FlxState
 		FlxG.mouse.visible = false;
 		snakeHead = new FlxSprite();
         snakeHead.loadGraphic(AssetPaths.snakehead__png);
+        snakeHead.scale.set(0.3,0.3);
 		snakeHead.offset.set(1, 1);
 		snakeHead.centerOffsets();
 		snakeHead.x = Math.floor(FlxG.width / 2);
 		snakeHead.y = Math.floor(FlxG.height / 2);
-		add(snakeHead);
+
+		snakeHead.facing = DOWN;
+		snakeHead.setFacingFlip(RIGHT, false, true);
+		snakeHead.setFacingFlip(LEFT, false, true);
+		snakeHead.setFacingFlip(UP, true, false);
+		snakeHead.setFacingFlip(DOWN,true, false);
+		
+		headPoints = [FlxPoint.get(snakeHead.x, snakeHead.y)];
 		
 		snakeBody = new FlxSpriteGroup();
 		add(snakeBody);
 
-		fruit = new FlxSprite();
-        fruit.loadGraphic(AssetPaths.apple__png);
-		randomizeFruitPosition();
-		snakeHead.offset.set(1, 1);
-		snakeHead.centerOffsets();
-		add(fruit);
+		for (i in 0...3)
+		{
+			addBody();
+			movement();
+		}
+		add(snakeHead);
+
+		apple = new FlxSprite();
+        apple.loadGraphic(AssetPaths.apple__png);
+        apple.scale.set(0.2,0.2);
+		applePosition();
+		apple.offset.set(1, 1);
+		apple.centerOffsets();
+		add(apple);
 
 		scoreText = new FlxText(0, 4, FlxG.width, "Score: " + 0);
 		scoreText.setFormat(null, 16, FlxColor.WHITE, CENTER, OUTLINE);
 		add(scoreText);
-		
+		makeSnakeMove();
 	}
 
 	override public function update(elapsed:Float)
 	{
 		super.update(elapsed);
-		// if (FlxG.keys.anyPressed([UP, W]) && currentDir != DOWN)
-		// {
-		// 	nextDir = UP;
-		// }
-		// else if (FlxG.keys.anyPressed([DOWN, S]) && currentDir != UP)
-		// {
-		// 	nextDir = DOWN;
-		// }
-		// else if (FlxG.keys.anyPressed([LEFT, A]) && currentDir != RIGHT)
-		// {
-		// 	nextDir = LEFT;
-		// }
-		// else if (FlxG.keys.anyPressed([RIGHT, D]) && currentDir != LEFT)
-		// {
-		// 	nextDir = RIGHT;
-		// }
-		if(FlxG.keys.pressed.LEFT){
-			snakeHead.x -= 3;
-		} else if(FlxG.keys.pressed.RIGHT){
-			snakeHead.x += 3;
-		} else if(FlxG.keys.pressed.UP){
-			snakeHead.y -= 3;
-		} else if(FlxG.keys.pressed.DOWN){
-			snakeHead.y += 3;
+		if (FlxG.keys.anyPressed([UP, W]) && currentDir != DOWN)
+		{
+			nextDir = UP;
+			snakeHead.facing = UP;
+		}
+		else if (FlxG.keys.anyPressed([DOWN, S]) && currentDir != UP)
+		{
+			nextDir = DOWN;
+			snakeHead.facing = DOWN;
+		}
+		else if (FlxG.keys.anyPressed([LEFT, A]) && currentDir != RIGHT)
+		{
+			nextDir = LEFT;
+			snakeHead.facing = LEFT;
+		}
+		else if (FlxG.keys.anyPressed([RIGHT, D]) && currentDir != LEFT)
+		{
+			nextDir = RIGHT;
+			snakeHead.facing = RIGHT;
 		}
 
-		FlxG.overlap(snakeHead, fruit, snakeEatsFruit);
+		FlxG.overlap(snakeHead, apple, snakeEatsFruit);
 	}
 
 	function increaseScore(Amount:Int = 10):Void
@@ -107,43 +119,40 @@ class PlayState extends FlxState
 		FlxTween.tween(scoreText, {alpha: 1}, 0.5);
 	}
 
-	function addSegment():Void
+	function addBody():Void
 	{
-		// Spawn the new segment outside of the screen
-		// It'll be attached to the snake end in the next moveSnake() call
-		var segment:FlxSprite = new FlxSprite(-20, -20);
-		segment.makeGraphic(10, 10, FlxColor.GREEN);
-		snakeBody.add(segment);
+		bodyBlock = new FlxSprite(-20, -20);
+		bodyBlock.makeGraphic(15, 15, FlxColor.GREEN);
+		snakeBody.add(bodyBlock);
 	}
 
-	function snakeEatsFruit(Object1:FlxObject, Object2:FlxObject):Void{
-
+	function snakeEatsFruit(Object1:FlxObject, Object2:FlxObject):Void
+	{
 		increaseScore();
-		addSegment();
-		randomizeFruitPosition();
-
+		addBody();
+		applePosition();
 	}
-	function randomizeFruitPosition(?Object1:FlxObject, ?Object2:FlxObject):Void
+	function applePosition(?Object1:FlxObject, ?Object2:FlxObject):Void
 	{
-		// Pick a random place to put the fruit down
-		fruit.x = FlxG.random.int(0, Math.floor(FlxG.width / 8) - 1) * 8;
-		fruit.y = FlxG.random.int(0, Math.floor(FlxG.height / 8) - 1) * 8;
+
+		apple.x = FlxG.random.int(0, Math.floor(FlxG.width / 8) - 1) * 8;
+		apple.y = FlxG.random.int(0, Math.floor(FlxG.height / 8) - 1) * 8;
 	}
 
-	function resetTimer(?Timer:FlxTimer):Void
+	function makeSnakeMove(?Timer:FlxTimer):Void
+	
 	{
-		// Stop the movement cycle if we're dead
 		if (!snakeHead.alive && Timer != null)
 		{
 			Timer.destroy();
 			return;
 		}
 
-		new FlxTimer().start(_movementInterval / FlxG.updateFramerate, resetTimer);
-		moveSnake();
+		new FlxTimer().start(_movementInterval / FlxG.updateFramerate, makeSnakeMove);
+		movement();
 	}
 
-	function moveSnake():Void
+	function movement():Void
 	{
 		headPoints.unshift(FlxPoint.get(snakeHead.x, snakeHead.y));
 
@@ -156,13 +165,13 @@ class PlayState extends FlxState
 		switch (nextDir)
 		{
 			case LEFT:
-				snakeHead.x -= 10;
+				snakeHead.x -= 15;
 			case RIGHT:
-				snakeHead.x += 10;
+				snakeHead.x += 15;
 			case UP:
-				snakeHead.y -= 10;
+				snakeHead.y -= 15;
 			case DOWN:
-				snakeHead.y += 10;
+				snakeHead.y += 15;
 		}
 		currentDir = nextDir;
 
@@ -172,15 +181,6 @@ class PlayState extends FlxState
 		{
 			snakeBody.members[i].setPosition(headPoints[i].x, headPoints[i].y);
 		}
-		timer = new FlxTimer();
-		if (!snakeHead.alive && timer != null)
-		{
-			timer.destroy();
-			return;
-		}
-
-		new FlxTimer().start(_movementInterval / FlxG.updateFramerate, resetTimer);
-		moveSnake();
 	}
 
 }
