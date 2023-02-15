@@ -32,7 +32,7 @@ class PlayState extends FlxState
 		// super.create();
 		FlxG.mouse.visible = false;
 		snakeHead = new FlxSprite();
-		snakeHead.makeGraphic(10,10,FlxColor.LIME);
+                snakeHead.loadGraphic(AssetPaths.snakehead__png);
 		snakeHead.offset.set(1, 1);
 		snakeHead.centerOffsets();
 		snakeHead.x = Math.floor(FlxG.width / 2);
@@ -49,7 +49,7 @@ class PlayState extends FlxState
 		}
 		add(snakeHead);
 		fruit = new FlxSprite();
-		fruit.makeGraphic(10, 10, FlxColor.RED);
+                fruit.loadGraphic(AssetPaths.apple__png);
 		randomizeFruitPosition();
 		snakeHead.offset.set(1, 1);
 		snakeHead.centerOffsets();
