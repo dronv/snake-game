@@ -10,7 +10,6 @@ class MenuState extends FlxState
 {
 	var playButton:FlxButton;
 	var menuBackground:FlxSprite;
-	var logo:FlxSprite;
 	override public function create():Void
 	{
 		super.create();
@@ -21,12 +20,6 @@ class MenuState extends FlxState
 		menuBackground.loadGraphic("assets/images/menu_background2.png", false, 640, 480);
 		menuBackground.screenCenter();
 		add(menuBackground);
-
-		logo = new FlxSprite();
-		logo.loadGraphic("assets/images/logo.png", false);
-		logo.x = windowWidth * 0.25;
-		logo.y = windowHeight * 0.8;
-		add(logo);
 
 		playButton = new FlxButton(0, 0, "Play now", clickPlay);
 		playButton.screenCenter();
