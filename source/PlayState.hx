@@ -23,7 +23,7 @@ class PlayState extends FlxState
 		super.create();
 		FlxG.mouse.visible = false;
 		snakeHead = new FlxSprite();
-		snakeHead.makeGraphic(10,10,FlxColor.LIME);
+                snakeHead.loadGraphic(AssetPaths.snakehead__png);
 		snakeHead.offset.set(1, 1);
 		snakeHead.centerOffsets();
 		snakeHead.x = Math.floor(FlxG.width / 2);
