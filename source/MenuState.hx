@@ -9,24 +9,15 @@ import flixel.text.FlxText;
 
 class MenuState extends FlxState
 {
-	var loop_music:Bool =true;
-	//var sfx_volume:Float = 0.5;
-	//var loop_count:Int = 0;
 	var playButton:FlxButton;
 	var menuBackground:FlxSprite;
 	override public function create():Void
 	{
- 		super.create();
+		super.create();
 		var windowWidth = FlxG.stage.stageWidth;
 		var windowHeight = FlxG.stage.stageHeight;
 		
-		//adding background music
-		// TODO: Sound works only after user clicks into gamescreen once
-		//if (FlxG.sound.music == null)
- 		//{
-     	FlxG.sound.playMusic("assets/music/bgm.ogg", 0.3, true);
- 		//}
- 		//adding background
+		//adding background
 		menuBackground = new FlxSprite();
 		menuBackground.loadGraphic("assets/images/menu_background2.png", false, 640, 480);
 		menuBackground.screenCenter();
@@ -37,7 +28,6 @@ class MenuState extends FlxState
 		playButton.x = windowWidth *0.5 - playButton.width*0.5;
 		playButton.y = windowHeight *0.4;
 		add(playButton);
-		playButton.onUp.sound = FlxG.sound.load("assets/sounds/select.wav");
 
 		//adding title text
 		var titleText = new FlxText("EVOLVING SNAKE", 47);
