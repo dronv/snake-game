@@ -18,7 +18,6 @@ class PlayState extends FlxState
 	var sprite:FlxSprite;
 	var scoreText:FlxText;
 	var apple:FlxSprite;
-	var snakeHead:FlxSprite;
 	var headPoints:Array<FlxPoint>;
 	var snakeBody:FlxSpriteGroup;
 	var bodyBlock : FlxSprite;
@@ -28,9 +27,12 @@ class PlayState extends FlxState
 	var _movementInterval:Float = 8;
 	var MIN_INTERVAL : Float = 2;
 	var timer : FlxTimer;
+	var snakeHead:Snakehead;
 
 	override public function create()
 	{
+		FlxG.sound.play(AssetPaths.playclick__wav);
+		FlxG.sound.playMusic(AssetPaths.bgm__ogg);
 		super.create();
 		sprite = new FlxSprite();
 		sprite.makeGraphic(640,480,flixel.util.FlxColor.WHITE);
@@ -44,12 +46,9 @@ class PlayState extends FlxState
 		}
 		add(sprite);
 		FlxG.mouse.visible = false;
-		snakeHead = new FlxSprite();
-        snakeHead.loadGraphic(AssetPaths.snakehead__png);
-		snakeHead.offset.set(1, 1);
-		snakeHead.centerOffsets();
-		snakeHead.x = Math.floor(FlxG.width / 2);
-		snakeHead.y = Math.floor(FlxG.height / 2);
+		snakeHead = new Snakehead(0,0);
+		add(snakeHead);
+		snakeHead.screenCenter;
 
 		snakeHead.facing = DOWN;
 		snakeHead.setFacingFlip(RIGHT, false, true);
@@ -121,7 +120,7 @@ class PlayState extends FlxState
 	function addBody():Void
 	{
 		bodyBlock = new FlxSprite(-20, -20);
-		bodyBlock.makeGraphic(15, 15, FlxColor.GREEN);
+		bodyBlock.makeGraphic(20, 20, FlxColor.GREEN);
 		snakeBody.add(bodyBlock);
 	}
 
@@ -130,6 +129,10 @@ class PlayState extends FlxState
 		increaseScore();
 		addBody();
 		applePosition();
+		FlxG.sound.play(AssetPaths.eat__wav);
+		if(score>=200 &&score<250){
+			snakeHead.updatestate();
+		}
 	}
 	function applePosition(?Object1:FlxObject, ?Object2:FlxObject):Void
 	{
@@ -189,3 +192,4 @@ class PlayState extends FlxState
 	}	
 
 }
+
