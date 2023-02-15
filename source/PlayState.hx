@@ -45,7 +45,7 @@ class PlayState extends FlxState
 		add(sprite);
 		FlxG.mouse.visible = false;
 		snakeHead = new FlxSprite();
-                snakeHead.loadGraphic(AssetPaths.snakehead__png);
+        snakeHead.loadGraphic(AssetPaths.snakehead__png);
 		snakeHead.offset.set(1, 1);
 		snakeHead.centerOffsets();
 		snakeHead.x = Math.floor(FlxG.width / 2);
@@ -70,7 +70,7 @@ class PlayState extends FlxState
 		add(snakeHead);
 
 		apple = new FlxSprite();
-                apple.loadGraphic(AssetPaths.apple__png);
+        apple.loadGraphic(AssetPaths.apple__png);
 		applePosition();
 		apple.offset.set(1, 1);
 		apple.centerOffsets();
@@ -107,7 +107,7 @@ class PlayState extends FlxState
 		}
 
 		FlxG.overlap(snakeHead, apple, snakeEatsFruit);
-		FlxG.overlap(snakeHead, snakeBody, gameOver);
+		hit();
 	}
 
 	function increaseScore(Amount:Int = 10):Void
@@ -139,6 +139,7 @@ class PlayState extends FlxState
 	}
 
 	function makeSnakeMove(?Timer:FlxTimer):Void
+	
 	{
 		if (!snakeHead.alive && Timer != null)
 		{
@@ -181,9 +182,10 @@ class PlayState extends FlxState
 		}
 	}
 
-	// end game if snake crashes in own body (TODO!)
-	function gameOver(?Object1:FlxObject, ?Object2:FlxObject):Void
-	{
-		//FlxG.switchState(new EndState());
-	}
+	function hit():Void {
+		if(FlxG.overlap(snakeHead,bodyBlock)){
+			FlxG.switchState(new EndState(score));
+		}
+	}	
+
 }
