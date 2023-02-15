@@ -12,6 +12,7 @@ import flixel.tweens.FlxTween;
 
 class PlayState extends FlxState
 {
+	var sprite:FlxSprite;
 	var scoreText:FlxText;
 	var fruit:FlxSprite;
 	var snakeHead:FlxSprite;
@@ -21,9 +22,20 @@ class PlayState extends FlxState
 	override public function create()
 	{
 		super.create();
+		sprite = new FlxSprite();
+		sprite.makeGraphic(640,480,flixel.util.FlxColor.WHITE);
+		for(y in 0 ... 480){
+			for(x in 0 ...640){
+				if(x%2 == 1 && y%2 == 1)
+					sprite.pixels.setPixel(x,y,0x0000ff);
+				if(x<5 || y<5 ||x>635 || y>475)
+					sprite.pixels.setPixel(x,y,0xffffff);
+			}
+		}
+		add(sprite);
 		FlxG.mouse.visible = false;
 		snakeHead = new FlxSprite();
-		snakeHead.makeGraphic(10,10,FlxColor.LIME);
+                snakeHead.loadGraphic(AssetPaths.snakehead__png);
 		snakeHead.offset.set(1, 1);
 		snakeHead.centerOffsets();
 		snakeHead.x = Math.floor(FlxG.width / 2);
@@ -34,7 +46,7 @@ class PlayState extends FlxState
 		add(snakeBody);
 
 		fruit = new FlxSprite();
-		fruit.makeGraphic(10, 10, FlxColor.RED);
+                fruit.loadGraphic(AssetPaths.apple__png);
 		randomizeFruitPosition();
 		snakeHead.offset.set(1, 1);
 		snakeHead.centerOffsets();
