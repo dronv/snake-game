@@ -31,7 +31,7 @@ class PlayState extends FlxState
 
 	override public function create()
 	{
-		FlxG.sound.play(AssetPaths.playclick__wav);
+		FlxG.sound.play(AssetPaths.Play_click__mp3);
 		FlxG.sound.playMusic(AssetPaths.bgm__ogg);
 		super.create();
 		sprite = new FlxSprite();
@@ -106,7 +106,9 @@ class PlayState extends FlxState
 		}
 
 		FlxG.overlap(snakeHead, apple, snakeEatsFruit);
-		hit();
+		if (FlxG.pixelPerfectOverlap(snakeHead, bodyBlock)){
+			end();
+		}
 	}
 
 	function increaseScore(Amount:Int = 10):Void
@@ -120,7 +122,7 @@ class PlayState extends FlxState
 	function addBody():Void
 	{
 		bodyBlock = new FlxSprite(-20, -20);
-		bodyBlock.makeGraphic(20, 20, FlxColor.GREEN);
+		bodyBlock.makeGraphic(15, 15, FlxColor.GREEN);
 		snakeBody.add(bodyBlock);
 	}
 
@@ -129,7 +131,7 @@ class PlayState extends FlxState
 		increaseScore();
 		addBody();
 		applePosition();
-		FlxG.sound.play(AssetPaths.eat__wav);
+		FlxG.sound.play(AssetPaths.eat__mp3);
 		if(score>=200 &&score<250){
 			snakeHead.updatestate();
 		}
@@ -185,11 +187,9 @@ class PlayState extends FlxState
 		}
 	}
 
-	function hit():Void {
-		if(FlxG.overlap(snakeHead,bodyBlock)){
+	function end():Void {
+		FlxG.sound.music.pause();
 			FlxG.switchState(new EndState(score));
-		}
 	}	
 
 }
-
