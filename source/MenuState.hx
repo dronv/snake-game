@@ -9,7 +9,6 @@ import flixel.text.FlxText;
 
 class MenuState extends FlxState
 {
-
 	var playButton:FlxButton;
 	var menuBackground:FlxSprite;
 	override public function create():Void
@@ -44,7 +43,6 @@ class MenuState extends FlxState
 		howToPlayText1.x = windowWidth* 0.5 - howToPlayText1.width * 0.5;
 		howToPlayText1.y = windowHeight*0.55;
 		add(howToPlayText1);
-
 		var howToPlayText2 = new FlxText(
 		"But careful: Don't CRASH into yourself!");
 		howToPlayText2.setFormat(null, 16, FlxColor.BLACK, CENTER, OUTLINE);
@@ -52,10 +50,8 @@ class MenuState extends FlxState
 		howToPlayText2.y = windowHeight*0.75;
 		add(howToPlayText2);
 	}
-
 	//if play button is clicked:
 	function clickPlay():Void
-
 	{
 		FlxG.switchState(new PlayState());
 	}

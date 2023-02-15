@@ -9,7 +9,6 @@ import flixel.text.FlxText;
 
 class EndState extends FlxState
 {
-
 	var endBackground:FlxSprite;
 	var gameOverText:FlxText;
 	var yourScoreText:FlxText;
