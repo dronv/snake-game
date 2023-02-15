@@ -107,6 +107,7 @@ class PlayState extends FlxState
 		}
 
 		FlxG.overlap(snakeHead, apple, snakeEatsFruit);
+		FlxG.overlap(snakeHead, snakeBody, gameOver);
 	}
 
 	function increaseScore(Amount:Int = 10):Void
@@ -138,7 +139,6 @@ class PlayState extends FlxState
 	}
 
 	function makeSnakeMove(?Timer:FlxTimer):Void
-	
 	{
 		if (!snakeHead.alive && Timer != null)
 		{
@@ -181,4 +181,9 @@ class PlayState extends FlxState
 		}
 	}
 
+	// end game if snake crashes in own body (TODO!)
+	function gameOver(?Object1:FlxObject, ?Object2:FlxObject):Void
+	{
+		//FlxG.switchState(new EndState());
+	}
 }

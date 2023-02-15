@@ -32,12 +32,12 @@ class EndState extends FlxState
 		gameOverText.y = windowHeight/5;
 		add(gameOverText);
 
-		yourScoreText = new flixel.text.FlxText("Your Score: " , 30);
+		yourScoreText = new flixel.text.FlxText("Your Score: 40 " , 30);
 		yourScoreText.x = windowWidth/2 - yourScoreText.width * 0.5;
 		yourScoreText.y =  windowHeight/3;
 		add(yourScoreText);
 
-		exitText = new FlxText("---Click 'ALT' + 'F4' to exit Game---", 24);
+		exitText = new FlxText("---Press 'ALT' + 'F4' to exit Game---", 24);
 		exitText.x = windowWidth /2 - exitText.width * 0.5;
 		exitText.y = windowHeight * 0.85;
 		add(exitText);
