@@ -26,7 +26,7 @@ class EndState extends FlxState
 
 	override public function create():Void
 	{
-		FlxG.sound.play(AssetPaths.fail__wav);
+		FlxG.sound.play(AssetPaths.fail__mp3);
 		super.create();
 		FlxG.mouse.visible = true;
 		var windowHeight = FlxG.stage.stageHeight;
