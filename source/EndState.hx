@@ -10,6 +10,7 @@ import flixel.text.FlxText;
 class EndState extends FlxState
 {
 
+
 	var endBackground:FlxSprite;
 	var gameOverText:FlxText;
 	var yourScoreText:FlxText;
@@ -25,6 +26,7 @@ class EndState extends FlxState
 
 	override public function create():Void
 	{
+		FlxG.sound.play(AssetPaths.fail__wav);
 		super.create();
 		FlxG.mouse.visible = true;
 		var windowHeight = FlxG.stage.stageHeight;
