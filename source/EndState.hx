@@ -9,11 +9,19 @@ import flixel.text.FlxText;
 
 class EndState extends FlxState
 {
+
 	var endBackground:FlxSprite;
 	var gameOverText:FlxText;
 	var yourScoreText:FlxText;
 	var exitText:FlxText;
 	var playAgainButton:FlxButton;
+	var score:Int;
+
+	public function new(score:Int)
+	{	
+		super();
+		this.score = score;
+	}
 
 	override public function create():Void
 	{
@@ -31,12 +39,12 @@ class EndState extends FlxState
 		gameOverText.y = windowHeight/5;
 		add(gameOverText);
 
-		yourScoreText = new flixel.text.FlxText("Your Score: 40 " , 30);
+		yourScoreText = new flixel.text.FlxText("Your Score: " + score, 30);
 		yourScoreText.x = windowWidth/2 - yourScoreText.width * 0.5;
 		yourScoreText.y =  windowHeight/3;
 		add(yourScoreText);
 
-		exitText = new FlxText("---Press 'ALT' + 'F4' to exit Game---", 24);
+		exitText = new FlxText("---Click 'ALT' + 'F4' to exit Game---", 24);
 		exitText.x = windowWidth /2 - exitText.width * 0.5;
 		exitText.y = windowHeight * 0.85;
 		add(exitText);
