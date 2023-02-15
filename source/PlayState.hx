@@ -29,27 +29,23 @@ class PlayState extends FlxState
 
 	override public function create()
 	{
-		// super.create();
+		super.create();
 		FlxG.mouse.visible = false;
 		snakeHead = new FlxSprite();
-                snakeHead.loadGraphic(AssetPaths.snakehead__png);
+        snakeHead.loadGraphic(AssetPaths.snakehead__png);
+        snakeHead.scale.set(0.3,0.3);
 		snakeHead.offset.set(1, 1);
 		snakeHead.centerOffsets();
 		snakeHead.x = Math.floor(FlxG.width / 2);
 		snakeHead.y = Math.floor(FlxG.height / 2);
+		add(snakeHead);
 		
-		headPoints = [FlxPoint.get(snakeHead.x, snakeHead.y)];
-
 		snakeBody = new FlxSpriteGroup();
 		add(snakeBody);
 
-		for (i in 0...3) {
-			addSegment();
-			moveSnake();
-		}
-		add(snakeHead);
 		fruit = new FlxSprite();
-                fruit.loadGraphic(AssetPaths.apple__png);
+        fruit.loadGraphic(AssetPaths.apple__png);
+        fruit.scale.set(0.4,0.4);
 		randomizeFruitPosition();
 		snakeHead.offset.set(1, 1);
 		snakeHead.centerOffsets();
@@ -64,21 +60,30 @@ class PlayState extends FlxState
 	override public function update(elapsed:Float)
 	{
 		super.update(elapsed);
-		if (FlxG.keys.anyPressed([UP, W]) && currentDir != DOWN)
-		{
-			nextDir = UP;
-		}
-		else if (FlxG.keys.anyPressed([DOWN, S]) && currentDir != UP)
-		{
-			nextDir = DOWN;
-		}
-		else if (FlxG.keys.anyPressed([LEFT, A]) && currentDir != RIGHT)
-		{
-			nextDir = LEFT;
-		}
-		else if (FlxG.keys.anyPressed([RIGHT, D]) && currentDir != LEFT)
-		{
-			nextDir = RIGHT;
+		// if (FlxG.keys.anyPressed([UP, W]) && currentDir != DOWN)
+		// {
+		// 	nextDir = UP;
+		// }
+		// else if (FlxG.keys.anyPressed([DOWN, S]) && currentDir != UP)
+		// {
+		// 	nextDir = DOWN;
+		// }
+		// else if (FlxG.keys.anyPressed([LEFT, A]) && currentDir != RIGHT)
+		// {
+		// 	nextDir = LEFT;
+		// }
+		// else if (FlxG.keys.anyPressed([RIGHT, D]) && currentDir != LEFT)
+		// {
+		// 	nextDir = RIGHT;
+		// }
+		if(FlxG.keys.pressed.LEFT){
+			snakeHead.x -= 3;
+		} else if(FlxG.keys.pressed.RIGHT){
+			snakeHead.x += 3;
+		} else if(FlxG.keys.pressed.UP){
+			snakeHead.y -= 3;
+		} else if(FlxG.keys.pressed.DOWN){
+			snakeHead.y += 3;
 		}
 
 		FlxG.overlap(snakeHead, fruit, snakeEatsFruit);
