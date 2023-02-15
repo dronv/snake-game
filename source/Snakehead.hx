@@ -20,6 +20,6 @@ class Snakehead extends FlxSprite
     public function updatestate(){
         loadGraphic(AssetPaths.soardragon__png,50,50,false);
         setSize(50,50);
-        FlxG.sound.play(AssetPaths.levelup__mp3);
+        FlxG.sound.play(AssetPaths.levelup__wav);
     }
 }
